@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Kr1an_000\Desktop\SObjectRepository-master\SObjectApplication\obj\Debug\
+D:\audiobook\sorep\SObjectRepository\SObjectApplication\obj\Debug\
 SObjectApplication
 none
 false
 DEBUG;TRACE
-C:\Users\Kr1an_000\Desktop\SObjectRepository-master\SObjectApplication\App.xaml
+D:\audiobook\sorep\SObjectRepository\SObjectApplication\App.xaml
 12958441929
 
 371400466335
 131569487696
 Views\Add.xaml;Views\Library.xaml;MainWindow.xaml;Views\LibraryList\AddConstellation\AddConstillation.xaml;Views\LibraryList\AddConstellation\AddPlanet.xaml;Views\LibraryList\AddConstellation\AddStar.xaml;Views\LibraryList\AddConstellation\Change\ChangeConstellation.xaml;Views\LibraryList\AddConstellation\Change\ChangePlanet.xaml;Views\LibraryList\AddConstellation\Change\ChangeStar.xaml;Views\LibraryList\ListConstellation.xaml;Views\LibraryList\ListPlanet.xaml;Views\LibraryList\ListStar.xaml;
 
-False
+True
 

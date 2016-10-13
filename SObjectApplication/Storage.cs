@@ -18,7 +18,7 @@ namespace SObjectApplication
 		static public Chain<Planet> Planets;
 		public StreamWriter SavingFile;
 		public StreamReader LoadingFile;
-		static private String FileName = "SObjectDB.txt";
+		static private String FileName = "SObjectDB.txt";//can be changed
 		
 
 

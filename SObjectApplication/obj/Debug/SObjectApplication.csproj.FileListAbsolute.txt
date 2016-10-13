@@ -70,3 +70,6 @@ C:\Users\Kr1an_000\Desktop\SObjectRepository-master\SObjectApplication\obj\Debug
 C:\Users\Kr1an_000\Desktop\SObjectRepository-master\SObjectApplication\obj\Debug\SObjectApplication.Properties.Resources.resources
 C:\Users\Kr1an_000\Desktop\SObjectRepository-master\SObjectApplication\obj\Debug\SObjectApplication.csproj.GenerateResource.Cache
 C:\Users\Kr1an_000\Desktop\SObjectRepository-master\SObjectApplication\obj\Debug\SObjectApplication.csprojResolveAssemblyReference.cache
+D:\audiobook\sorep\SObjectRepository\SObjectApplication\bin\Debug\SObjectApplication.exe.config
+D:\audiobook\sorep\SObjectRepository\SObjectApplication\obj\Debug\SObjectApplication.exe
+D:\audiobook\sorep\SObjectRepository\SObjectApplication\obj\Debug\SObjectApplication.pdb
