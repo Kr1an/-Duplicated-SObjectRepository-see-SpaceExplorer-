@@ -16,13 +16,13 @@ namespace SObjectRepository.Repository.SObjectModel
 		public InfoHelper ExInfo { get; set; }
 		public String Name { get; set; }
 
-
 		public Constellation()
 		{
 			Stars = new Chain<Star>();
 			ExInfo = new InfoHelper();
 			Position = new Position();
 			Image = new ImageHelper();
+			Name = "";
 
 		}
 

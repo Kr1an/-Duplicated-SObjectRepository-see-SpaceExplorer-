@@ -22,6 +22,7 @@ namespace SObjectRepository.Repository.SObjectModel
 			Image = new ImageHelper();
 			Planets = new Chain<Planet>();
 			ParentConstellation = new Constellation() { Name = "" };
+			Name = "";
 		}
 		
 		public bool Equals(Star Other)

@@ -14,6 +14,14 @@ namespace SObjectRepository.Repository.SObjectModel
 		public ImageHelper Image { get; set; }
 		public PlanetFeature Feature { get; set; }
 		public Star ParentStar { get; set; }
+
+		public Planet()
+		{
+			this.Name = "";
+			this.Image = new ImageHelper();
+			this.Feature = new PlanetFeature();
+			this.ParentStar = new SObjectModel.Star();
+		}
 		public bool Equals(Planet Other)
 		{
 			if (Name == Other.Name &&

@@ -15,8 +15,8 @@ using System.Windows.Shapes;
 using SObjectRepository.Repository.SObjectModel.Utils;
 using SObjectRepository.Repository.SObjectModel;
 using SObjectRepository.Repository.ChainCollection;
-
-
+using SObjectApplication.Repository.SObjectApplicationSaveHelper;
+using System.IO;
 
 namespace SObjectApplication
 {
@@ -29,7 +29,10 @@ namespace SObjectApplication
 		public MainWindow rootElement;
 		public MainWindow()
 		{
-			Chain<int> mass = new Chain<int>();
+			string res = "";
+			foreach (Constellation item in Storage.Constellations)
+				res += ConstellationFormatter.ConstellationToSaveFormat(item);
+			Storage.StorageRead();
 			rootElement = this;
 
 			InitializeComponent();
@@ -60,6 +63,7 @@ namespace SObjectApplication
 
 		private void btn_Exit_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
+			Storage.StorageWrite();
 			rootElement.Close();
 		}
 	}

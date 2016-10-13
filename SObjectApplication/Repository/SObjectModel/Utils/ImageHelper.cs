@@ -12,6 +12,15 @@ namespace SObjectRepository.Repository.SObjectModel.Utils
 
 		public ImageHelper()
 		{
+			ImagePath = "";
 		}		
+		public override string ToString()
+		{
+			return ImagePath;
+		}
+		static public ImageHelper FromString(String stringRepresentation)
+		{
+			return new ImageHelper() { ImagePath = stringRepresentation };
+		}
 	}
 }

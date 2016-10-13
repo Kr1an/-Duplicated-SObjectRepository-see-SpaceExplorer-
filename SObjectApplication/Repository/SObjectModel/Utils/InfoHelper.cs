@@ -14,6 +14,10 @@ namespace SObjectRepository.Repository.SObjectModel.Utils
 		public String Research { get; set; }
 		public InfoHelper()
 		{
+			Description = "";
+			ShortName = "";
+			Histroy = "";
+			Research = "";
 		}
 	}
 }

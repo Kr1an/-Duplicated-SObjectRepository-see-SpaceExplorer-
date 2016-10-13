@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ABA714CC-882F-4B5A-B017-E88EBF457164}</ProjectGuid>
+    <ProjectGuid>{373A43A4-188F-4A61-9EA8-F88C537AE1D0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SObjectApplication</RootNamespace>
@@ -56,6 +56,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Repository\ChainCollection\Chain.cs" />
+    <Compile Include="Repository\SObjectApplicationSaveHelper\ConstellationFormatter.cs" />
+    <Compile Include="Repository\SObjectApplicationSaveHelper\EntitiesFormatter.cs" />
+    <Compile Include="Repository\SObjectApplicationSaveHelper\PlanetFormatter.cs" />
+    <Compile Include="Repository\SObjectApplicationSaveHelper\ReadWriter.cs" />
+    <Compile Include="Repository\SObjectApplicationSaveHelper\SaveHelper.cs" />
+    <Compile Include="Repository\SObjectApplicationSaveHelper\StarFormatter.cs" />
     <Compile Include="Repository\SObjectModel\Constellation.cs" />
     <Compile Include="Repository\SObjectModel\Planet.cs" />
     <Compile Include="Repository\SObjectModel\Star.cs" />
