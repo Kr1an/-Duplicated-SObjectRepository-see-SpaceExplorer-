@@ -35,6 +35,7 @@ namespace SObjectApplication.Views.LibraryList
 			this.rootElement = rootElement;
 			InitializeComponent();
 			listView.ItemsSource = Storage.Constellations.items;
+			
 		}
 		private void imgBack_MouseUp(object sender, MouseButtonEventArgs e)
 		{

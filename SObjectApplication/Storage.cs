@@ -8,6 +8,9 @@ using SObjectRepository.Repository.SObjectModel.Utils;
 using SObjectRepository.Repository.SObjectModel;
 using System.IO;
 using SObjectApplication.Repository.SObjectApplicationSaveHelper;
+using System.Security.Cryptography;
+using System.IO.Compression;
+using System.Diagnostics;
 
 namespace SObjectApplication
 {
@@ -18,21 +21,59 @@ namespace SObjectApplication
 		static public Chain<Planet> Planets;
 		public StreamWriter SavingFile;
 		public StreamReader LoadingFile;
-		static private String FileName = "SObjectDB.txt";//can be changed
-		
+		static public String FileName = "SObjectDB.dat";//can be changed
+		static public String ZipName = "SObjectDB.dat.gz";//can be changed
+		static public String FolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SObjectApplication");
+		static public String FullPath = Path.Combine(FolderPath, FileName);
+
 
 
 		public void SaveStorage(String saveFormString)
 		{
-			string FileFullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\" + FileName;
-			SavingFile = new StreamWriter(FileFullPath,false);
-			SavingFile.Write(saveFormString);
+			char[] temp = new char[saveFormString.Length];
+			for (int i = 0; i < saveFormString.Length; i++)
+				temp[i] = Convert.ToChar(Convert.ToInt32(saveFormString[i]) + 5);
+			
+
+			SavingFile = new StreamWriter(FullPath,false);
+			SavingFile.Write(new String(temp));
 			SavingFile.Flush();
 			SavingFile.Close();
+
 			
+
+
+		}
+		public static void Compress(DirectoryInfo directorySelected)
+		{
+			foreach (FileInfo fileToCompress in directorySelected.GetFiles())
+			{
+				using (FileStream originalFileStream = fileToCompress.OpenRead())
+				{
+					if ((File.GetAttributes(fileToCompress.FullName) &
+					   FileAttributes.Hidden) != FileAttributes.Hidden & fileToCompress.Extension != ".gz")
+					{
+						using (FileStream compressedFileStream = File.Create(fileToCompress.FullName + ".gz"))
+						{
+							using (GZipStream compressionStream = new GZipStream(compressedFileStream,
+							   CompressionMode.Compress))
+							{
+								originalFileStream.CopyTo(compressionStream);
+
+							}
+						}
+						FileInfo info = new FileInfo(FolderPath + "\\" + fileToCompress.Name + ".gz");
+						Console.WriteLine("Compressed {0} from {1} to {2} bytes.",
+						fileToCompress.Name, fileToCompress.Length.ToString(), info.Length.ToString());
+					}
+
+				}
+			}
 		}
 		static public void StorageWrite()
 		{
+			File.Delete(Path.Combine(FolderPath, ZipName));
+			File.Delete(Path.Combine(FolderPath, FullPath));
 			string str = "";
 			foreach (Planet Planet in Storage.Planets)
 				str += PlanetFormatter.PlanetToSaveFormat(Planet);
@@ -42,20 +83,66 @@ namespace SObjectApplication
 				str += ConstellationFormatter.ConstellationToSaveFormat(Constellation);
 			str += EntitiesFormatter.EntitiesToStringFormat();
 			new Storage().SaveStorage(str);
+			DirectoryInfo directorySelected = new DirectoryInfo(FolderPath);
+			Compress(directorySelected);
+			File.Delete(FullPath);
 		}
 		static public void StorageRead()
 		{
-			string str = new Storage().LoadStorage();
-			Storage.Planets = PlanetFormatter.GetPlanetList(str);
-			Storage.Stars = StarFormatter.GetStarList(str);
-			Storage.Constellations = ConstellationFormatter.GetConstellationList(str);
-			EntitiesFormatter.MakeEntity(str);
+			Storage.Planets = new Chain<Planet>();
+			Storage.Stars = new Chain<Star>();
+			Storage.Constellations = new Chain<Constellation>();
+			if (!File.Exists(ZipName))
+			{
+				if(!Directory.Exists(FolderPath))
+					Directory.CreateDirectory(FolderPath);
+				if (!File.Exists(FullPath))
+					File.Delete(FullPath);
+				AddRecords();
+			}
+			else
+			{
+				DirectoryInfo directorySelected = new DirectoryInfo(FolderPath);
+				foreach (FileInfo fileToDecompress in directorySelected.GetFiles("*.gz"))
+				{
+					Decompress(fileToDecompress);
+				}
+				string str = new Storage().LoadStorage();
+				Planets = PlanetFormatter.GetPlanetList(str);
+				Stars = StarFormatter.GetStarList(str);
+				Constellations = ConstellationFormatter.GetConstellationList(str);
+				EntitiesFormatter.MakeEntity(str);
+			}	
+		}
+
+
+		public static void Decompress(FileInfo fileToDecompress)
+		{
+			using (FileStream originalFileStream = fileToDecompress.OpenRead())
+			{
+				string currentFileName = fileToDecompress.FullName;
+				string newFileName = currentFileName.Remove(currentFileName.Length - fileToDecompress.Extension.Length);
+
+				using (FileStream decompressedFileStream = File.Create(newFileName))
+				{
+					using (GZipStream decompressionStream = new GZipStream(originalFileStream, CompressionMode.Decompress))
+					{
+						decompressionStream.CopyTo(decompressedFileStream);
+						Console.WriteLine("Decompressed: {0}", fileToDecompress.Name);
+					}
+				}
+			}
 		}
 		public string LoadStorage()
 		{
-			string FileFullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\" + FileName;
-			LoadingFile = new StreamReader(FileFullPath);
+			LoadingFile = new StreamReader(FullPath);
 			string result = LoadingFile.ReadLine();
+			LoadingFile.Close();
+			File.Delete(FullPath);
+			char[] temp = new char[result.Length];
+			for(int i = 0; i < result.Length; i++)
+				temp[i] = Convert.ToChar(Convert.ToInt32(result[i]) - 5);
+			result = new string(temp);
 			return result;
 
 		}
@@ -63,14 +150,17 @@ namespace SObjectApplication
 		static Storage()
 		{
 		
-			Constellations = new Chain<Constellation>();
-			Stars = new Chain<Star>();
-			Planets = new Chain<Planet>();
-			AddRecords();
+			
+			
+			
+
+				
+			
+			
 		}
 		static void AddRecords()
 		{
-			/*Storage.Constellations.Add(new Constellation() { Name = "Andromeda", ExInfo = new InfoHelper() { ShortName = "And" }, Position = new Position() });
+			Storage.Constellations.Add(new Constellation() { Name = "Andromeda", ExInfo = new InfoHelper() { ShortName = "And" }, Position = new Position() });
 			Storage.Constellations.Add(new Constellation() { Name = "Milkyway", ExInfo = new InfoHelper() { ShortName = "Mv" }, Position = new Position() });
 			Storage.Constellations.Add(new Constellation() { Name = "Antlia", ExInfo = new InfoHelper() { ShortName = "An" }, Position = new Position() });
 			Storage.Constellations.Add(new Constellation() { Name = "Ara", ExInfo = new InfoHelper() { ShortName = "Ar" }, Position = new Position() });
@@ -111,7 +201,7 @@ namespace SObjectApplication
 			Storage.Stars[4].Planets.Add(Storage.Planets[3]);
 			Storage.Stars[4].Planets.Add(Storage.Planets[3]);
 			Storage.Stars[4].Planets.Add(Storage.Planets[6]);
-			*/
+			
 		}
 	}
 }

@@ -29,12 +29,8 @@ namespace SObjectApplication
 		public MainWindow rootElement;
 		public MainWindow()
 		{
-			string res = "";
-			foreach (Constellation item in Storage.Constellations)
-				res += ConstellationFormatter.ConstellationToSaveFormat(item);
 			Storage.StorageRead();
 			rootElement = this;
-
 			InitializeComponent();
 		}
 		public MainWindow(MainWindow rootElement)
@@ -64,7 +60,7 @@ namespace SObjectApplication
 		private void btn_Exit_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			Storage.StorageWrite();
-			rootElement.Close();
+			Application.Current.Shutdown();
 		}
 	}
 }

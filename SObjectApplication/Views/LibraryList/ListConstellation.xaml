@@ -68,9 +68,6 @@
 							<GridViewColumn Header="Name" x:Name="colName"  Width="220px" DisplayMemberBinding="{Binding Name}"/>
 							<GridViewColumn Header="Stars" x:Name="colStarNum"  Width="55px" DisplayMemberBinding="{Binding Stars.Length }"/>
 							<GridViewColumn Header="Position" x:Name="colPosition" Width="120px" DisplayMemberBinding="{Binding Position.ToString}" />
-
-
-
 						</GridView>
 					</ListView.View>
 				</ListView>
