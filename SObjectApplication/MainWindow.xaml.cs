@@ -37,6 +37,7 @@ namespace SObjectApplication
 		{
 			this.rootElement = rootElement;
 			InitializeComponent();
+			
 		}
 
 
