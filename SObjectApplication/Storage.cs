@@ -11,11 +11,19 @@ using SObjectApplication.Repository.SObjectApplicationSaveHelper;
 using System.Security.Cryptography;
 using System.IO.Compression;
 using System.Diagnostics;
+using SObjectApplication.Repository.Serializer;
 
 namespace SObjectApplication
 {
+	class Entities
+	{
+		public Chain<Constellation> Constellations;
+		public Chain<Star> Stars;
+		public Chain<Planet> Planets;
+	}
 	class Storage
 	{
+		public static Entities Entities;
 		static public Chain<Constellation> Constellations;
 		static public Chain<Star> Stars;
 		static public Chain<Planet> Planets;
@@ -75,13 +83,17 @@ namespace SObjectApplication
 			File.Delete(Path.Combine(FolderPath, ZipName));
 			File.Delete(Path.Combine(FolderPath, FullPath));
 			string str = "";
-			foreach (Planet Planet in Storage.Planets)
-				str += PlanetFormatter.PlanetToSaveFormat(Planet);
-			foreach (Star Star in Storage.Stars)
-				str += StarFormatter.StarToSaveFormat(Star);
-			foreach (Constellation Constellation in Storage.Constellations)
-				str += ConstellationFormatter.ConstellationToSaveFormat(Constellation);
-			str += EntitiesFormatter.EntitiesToStringFormat();
+			//foreach (Planet Planet in Storage.Planets)
+			//	str += PlanetFormatter.PlanetToSaveFormat(Planet);
+			//foreach (Star Star in Storage.Stars)
+			//	str += StarFormatter.StarToSaveFormat(Star);
+			//foreach (Constellation Constellation in Storage.Constellations)
+			//	str += ConstellationFormatter.ConstellationToSaveFormat(Constellation);
+			//str += EntitiesFormatter.EntitiesToStringFormat();
+			Entities.Constellations = Constellations;
+			Entities.Planets = Planets;
+			Entities.Stars = Stars;
+			str = Serializer.ToBin(Entities);
 			new Storage().SaveStorage(str);
 			DirectoryInfo directorySelected = new DirectoryInfo(FolderPath);
 			Compress(directorySelected);
@@ -92,7 +104,9 @@ namespace SObjectApplication
 			Storage.Planets = new Chain<Planet>();
 			Storage.Stars = new Chain<Star>();
 			Storage.Constellations = new Chain<Constellation>();
-			if (!File.Exists(ZipName))
+			Storage.Entities = new Entities();
+			
+			if (!File.Exists(Path.Combine(FolderPath, ZipName)))
 			{
 				if(!Directory.Exists(FolderPath))
 					Directory.CreateDirectory(FolderPath);
@@ -108,10 +122,18 @@ namespace SObjectApplication
 					Decompress(fileToDecompress);
 				}
 				string str = new Storage().LoadStorage();
-				Planets = PlanetFormatter.GetPlanetList(str);
-				Stars = StarFormatter.GetStarList(str);
-				Constellations = ConstellationFormatter.GetConstellationList(str);
-				EntitiesFormatter.MakeEntity(str);
+
+				Entities = Serializer.ToObj<Entities>(str);
+
+				Constellations = Entities.Constellations;
+				Stars = Entities.Stars;
+				Planets = Entities.Planets;
+
+
+				//Planets = PlanetFormatter.GetPlanetList(str);
+				//Stars = StarFormatter.GetStarList(str);
+				//Constellations = ConstellationFormatter.GetConstellationList(str);
+				//EntitiesFormatter.MakeEntity(str);
 			}	
 		}
 

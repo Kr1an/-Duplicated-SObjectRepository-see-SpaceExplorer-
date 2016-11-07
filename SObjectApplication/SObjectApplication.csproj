@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Repository\ChainCollection\Chain.cs" />
+    <Compile Include="Repository\Serializer\Serializer.cs" />
     <Compile Include="Repository\SObjectApplicationSaveHelper\ConstellationFormatter.cs" />
     <Compile Include="Repository\SObjectApplicationSaveHelper\EntitiesFormatter.cs" />
     <Compile Include="Repository\SObjectApplicationSaveHelper\PlanetFormatter.cs" />

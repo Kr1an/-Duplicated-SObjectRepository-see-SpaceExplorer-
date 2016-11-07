@@ -63,5 +63,9 @@ namespace SObjectApplication
 			Storage.StorageWrite();
 			Application.Current.Shutdown();
 		}
+
+	private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+		}
 	}
 }

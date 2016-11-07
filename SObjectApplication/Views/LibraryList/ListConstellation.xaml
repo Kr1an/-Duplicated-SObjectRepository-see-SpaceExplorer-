@@ -42,7 +42,7 @@
 			<Image x:Name="btn_info" Grid.Column="2" Height="51" Margin="0" Width="83" Source="/SObjectApplication;component/resources/Drawable/information.png" MouseLeftButtonUp="btn_info_MouseLeftButtonUp"/>
 			<Image x:Name="btn_add" Grid.Column="3" Height="51" Margin="0" Width="84" Source="/SObjectApplication;component/resources/Drawable/add.png" MouseLeftButtonUp="btn_add_MouseLeftButtonUp"/>
 		</Grid>
-		<Grid  HorizontalAlignment="Left" Height="230" Margin="10,10,0,0" VerticalAlignment="Top" Width="498">
+		<Grid HorizontalAlignment="Left" Height="230" Margin="10,10,0,0" VerticalAlignment="Top" Width="498">
 			<Border  BorderBrush="#FF000000" BorderThickness="0" CornerRadius="30" Background="#FFBCDDFF">
 				<ListView GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="listView" Margin="10,10,0,10.4" BorderBrush="{x:Null}" Background="#359DFF8E" FontFamily="Tahoma" MouseLeftButtonDown="listView_MouseLeftButtonDown" HorizontalAlignment="Left" Width="475">
 					<ListView.ItemContainerStyle>
@@ -62,9 +62,10 @@
 									<Setter Property="Foreground" Value="gray" />
 									<Setter Property="FontWeight" Value="Bold" />
 									<Setter Property="Height" Value="30px"/>
+									<Setter Property="MinWidth" Value ="20px"/>
 								</Style>
 							</GridView.ColumnHeaderContainerStyle>
-							<GridViewColumn Header="ShortName" x:Name="colShortName"  Width="80px" DisplayMemberBinding="{Binding ExInfo.ShortName}"/>
+							<GridViewColumn  Header="ShortName" x:Name="colShortName"  Width="80px" DisplayMemberBinding="{Binding ExInfo.ShortName}"/>
 							<GridViewColumn Header="Name" x:Name="colName"  Width="220px" DisplayMemberBinding="{Binding Name}"/>
 							<GridViewColumn Header="Stars" x:Name="colStarNum"  Width="55px" DisplayMemberBinding="{Binding Stars.Length }"/>
 							<GridViewColumn Header="Position" x:Name="colPosition" Width="120px" DisplayMemberBinding="{Binding Position.ToString}" />
