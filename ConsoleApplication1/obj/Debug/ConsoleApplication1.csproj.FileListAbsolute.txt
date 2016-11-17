@@ -1,0 +1,6 @@
+D:\Repositoryes\SObjectRepository\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+D:\Repositoryes\SObjectRepository\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+D:\Repositoryes\SObjectRepository\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+D:\Repositoryes\SObjectRepository\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+D:\Repositoryes\SObjectRepository\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+D:\Repositoryes\SObjectRepository\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
